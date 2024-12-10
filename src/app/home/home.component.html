@@ -23,14 +23,16 @@
   </div>
 
  <div class="row my-3">
-    <div class="col-lg-8">
+ @for (recipies of homeRecipies; track $index) {
+    <div class="col-lg-4 d-flex">
         <div class="p-3">
-            <img src="https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141352.jpg" width="100%" class="object-fit-contain" alt="">
+            <img [src]=recipies.image width="40%" class="object-fit-contain rounded-3" alt="">
             <div class="card-body">
-                <h4>title</h4>
+                <h4>{{recipies.name}}</h4>
             </div>
         </div>
     </div>
+ }
 </div>
  </div>
 

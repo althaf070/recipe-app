@@ -1,11 +1,11 @@
 <app-header></app-header>
 
-<div class="container my-5">
+<div class="container ">
   <div class="row">
     <div class="container">
-      <div class="col-lg-4">
+      <div class="col-lg-2">
         <h5>Filter</h5>
-        <button class="mt-5 btn btn-dark">All</button>
+        <button class="btn btn-dark" (click)="getAllRecipies()">All</button>
         <br />
         <button
           class="btn btn-primary mt-1"
@@ -22,14 +22,14 @@
     </div>
     <div class="col-lg-4">
       <div class="collapse" id="collapseExample">
-        <button class="btn">Italian</button>
-        <button class="btn">Asian</button>
-        <button class="btn">American</button>
-        <button class="btn">Mexican</button>
-        <button class="btn">Indian</button>
-        <button class="btn">Pakistani</button>
-        <button class="btn">Japanese</button>
-        <button class="btn">Thai</button>
+        <button class="btn" (click)="filterRecipies('cuisine','Italian')">Italian</button>
+        <button class="btn" (click)="filterRecipies('cuisine','Asian')">Asian</button>
+        <button class="btn" (click)="filterRecipies('cuisine','American')">American</button>
+        <button class="btn" (click)="filterRecipies('cuisine','Mexican')">Mexican</button>
+        <button class="btn" (click)="filterRecipies('cuisine','Indian')">Indian</button>
+        <button class="btn" (click)="filterRecipies('cuisine','Pakistani')">Pakistani</button>
+        <button class="btn" (click)="filterRecipies('cuisine','Japanese')">Japanese</button>
+        <button class="btn" (click)="filterRecipies('cuisine','Thai')">Thai</button>
       </div>
       <button
         class="btn btn-primary mt-1"
@@ -42,38 +42,54 @@
         Meal Type
       </button>
       <div class="collapse" id="collapseExample1">
-        <button class="btn">Lunch</button>
-        <button class="btn">Dinner</button>
-        <button class="btn">Dessert</button>
-        <button class="btn">Breakfast</button>
-        <button class="btn">beverage</button>
-        <button class="btn">Appetrizer</button>
-        <button class="btn">Salad</button>
+        <button class="btn" (click)="filterRecipies('mealType','Lunch')">Lunch</button>
+        <button class="btn" (click)="filterRecipies('mealType','Dinner')">Dinner</button>
+        <button class="btn" (click)="filterRecipies('mealType','Dessert')">Dessert</button>
+        <button class="btn" (click)="filterRecipies('mealType','Breakfast')">Breakfast</button>
+        <button class="btn" (click)="filterRecipies('mealType','Beverage')">Beverage</button>
+        <button class="btn" (click)="filterRecipies('mealType','Appetizer')">Appetizer</button>
+        <button class="btn" (click)="filterRecipies('mealType','Salad')">Salad</button>
       </div>
     </div>
-  </div>
 
-  <div class="col-lg-8">
+  <div class="col-lg-6">
     <div class="d-flex justify-content-between align-items-center">
         <h1>All Recipies</h1>
-        <input type="text" class="form-control w-50" placeholder="Search Your recipies">
+        <input type="text" class="form-control w-50" placeholder="Search Your recipies" [(ngModel)]="searchKey">
     </div>
 
-      <div class="row my-3">
-        <div class="col-lg-8">
-          <div class="p-3">
-            <img
-              src="https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141352.jpg"
-              width="100%"
-              class="object-fit-contain"
-              alt=""
-            />
-            <div class="card-body">
-              <h4>title</h4>
-              <p>indian</p>
+      <div class="row my-3 d-flex justify-content-between ">
+        @if (allRecipies.length > 0) {
+         @for (recipies of allRecipies | search:searchKey | paginate:{itemsPerPage:9,currentPage:p}; track $index) {
+          <div class="col-lg-4">
+            <div class="p-3">
+              <img
+               [src]=recipies.image
+                width="100%"
+                class="object-fit-contain"
+                alt=""
+                (click)="viewRecipies(recipies._id)"
+              />
+              <div class="card-body">
+                <h4>{{recipies.name}}</h4>
+                <p>{{recipies.cuisine}}</p>
+                <p>{{recipies.mealType}}</p>
+              </div>
             </div>
           </div>
-        </div>
+         }
+         @if((allRecipies | search:searchKey).length == 0){
+          <div class="text-danger text-center fw-bolder">
+            product not found
+          </div>
+         }
+        }@else {
+          <div class="text-danger text-center fw-bolder">
+            product not found
+          </div>
+        }
+      <div class="text-center">  <pagination-controls (pageChange)="($event)"></pagination-controls></div>
+      </div>
       </div>
     </div>
   </div>
