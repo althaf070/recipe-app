@@ -1,0 +1,25 @@
+<p>receipie-list works!</p>
+<table class="table shadow my-5">
+    <tbody>
+        @for(receipie of allReceipies | search:searchKey ; track $index; let i=$index)
+        {
+            <tr>
+                <td>{{i+1}}</td>
+                <td>{{receipie.name}}</td>
+                <td><img [src]=receipie.image width='100px' height="100px" alt=""></td>
+                <td>{{receipie.cuisine}}</td>
+
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<div class="col">
+    <h1>Welcome Admin</h1>
+    <h1 class="text-center text-primary fw-bolder">All-Receipie List</h1>
+    <div class="d-flex justify-content-between my-3">
+        <a routerLink="/admin/receipie/add" class="btn btn-primary">+Add More Receipie</a>
+        <input type="text" placeholder="Search by Name" class="form-control w-25">
+    </div>
+</div>

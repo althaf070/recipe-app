@@ -1,0 +1,26 @@
+<p>downloads works!</p>
+
+<h1 class="text-center text-primary fw-bolder">All-Downloads List</h1>
+<table class="table shadow my-5">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Receipie Id</th>
+            <th>Receipie Name</th>
+            <th>Reciepie Cuisine</th>
+            <th>Receipie Download Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(item of allDownloads; track $index; let i =$index){
+            <tr>
+                <td>{{i+1}}</td>
+                <td>{{item.receipieId}}</td>
+                <td>{{item.receipieName}}</td>
+                <td>{{item.receipieCuisine}}</td>
+                <td>{{item.count}}</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
